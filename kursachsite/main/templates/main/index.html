@@ -1,0 +1,45 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+Главная страница
+{% endblock %}
+
+{% block content %}
+    <h1>Рейтинг студентов</h1>
+
+    {% if rating %}
+        <table class="table table-dark table-borderless">
+              <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">ФИО студента</th>
+                    <th scope="col">Количество баллов</th>
+                    <th scope="col">Нормированные баллы</th>
+                    <th scope="col">ID студента</th>
+                  </tr>
+              </thead>
+              <tbody>
+
+                {% for el in rating %}
+                 <tr>
+                     <th scope="row">{{ el.place }}</th>
+                     <td>
+                         <a href="/profile?id={{ el.user_id }}">{{ el.title }}</a>
+                     </td>
+                     <td>{{ el.score }}</td>
+                     <td>{{ el.normalized_score }}</td>
+                     <td>@ {{ el.user_id }}</td>
+                 </tr>
+                {% endfor %}
+
+
+              </tbody>
+            </table>
+    {% else %}
+        <p>У нас нет записей!</p>
+    {% endif %}
+
+{% endblock %}
+
+
+

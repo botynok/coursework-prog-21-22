@@ -1,0 +1,43 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+Профиль
+{% endblock %}
+
+
+{% block content %}
+    {% if request.user.is_authenticated %}
+
+        <nav class="navbar navbar-expand-md">
+        <h1 class="me-3">{{ req_user.last_name }} {{ req_user.first_name }} {{ user_context.patronymic }}</h1>
+        {% if req_user.is_superuser %}
+            <h4><span class="badge rounded-pill bg-dark">Администратор</span></h4>
+        {% elif req_user.is_staff %}
+            <h4><span class="badge rounded-pill bg-primary">Преподаватель</span></h4>
+        {% else %}
+            <h4><span class="badge rounded-pill bg-warning">Студент</span></h4>
+        {% endif %}
+        </nav>
+
+        <br>
+        <p>Электронная почта: <b>{{ req_user.email }}</b></p>
+
+        {% if my_profile %}
+            {% if user_context == False %}
+                <p> Ошибка при загрузке контекста профиля </p>
+            {% else %}
+                <p>Номер телефона: <b>{{ user_context.phone_number }}</b></p>
+            {% endif %}
+
+            <p>Пароль: <b>{{ req_user.password }}</b></p>
+        {% endif %}
+
+    {% else %}
+        <h2><span class="badge bg-danger">Вы не авторизованы</span></h2>
+    {% endif %}
+
+
+
+
+{% endblock %}
+

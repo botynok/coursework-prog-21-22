@@ -1,0 +1,50 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+Добавление мероприятия
+{% endblock %}
+
+{% block content %}
+
+    <br>
+    {% if request.user.is_staff %}
+        {% if events %}
+            {% for el in events %}
+
+          <div class="alert alert-secondary">
+                <div>
+                    <h3>Название мероприятия: {{ el.title }}</h3>
+                    <p>ФИО студента: <b>{{ el.name }}</b></p>
+                    <p>Тип деятельности: <b>{{ el.type }}</b></p>
+                    <p>Уровень: <b>{{ el.level }}</b></p>
+                    <p>Роль студента: <b>{{ el.role }}</b></p>
+                    <p>Статус: <b>{{ el.checked }}</b></p>
+                </div>
+
+            <nav class="navbar navbar-expand-md">
+                <form action="/check_true" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="id" value="{{ el.id }}">
+                    <button name="decision" value="Одобрено" class="btn btn-success me-2">Одобрить</button>
+                </form>
+
+                <form action="/check_true" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="id" value="{{ el.id }}">
+                    <button name="decision" value="Отклонено" class="btn btn-danger">Отклонить</button>
+                </form>
+            </nav>
+
+            </div>
+            {% endfor %}
+
+        {% else %}
+            <p>У нас нет записей</p>
+        {% endif %}
+
+
+    {% else %}
+        <h2><span class="badge bg-danger">У вас нет прав для доступа к этой странице</span></h2>
+    {% endif %}
+
+{% endblock %}

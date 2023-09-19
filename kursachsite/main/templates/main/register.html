@@ -1,0 +1,45 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+Регистрация
+{% endblock %}
+
+
+{% block content %}
+    <h1>Регистрация</h1>
+    <form method="post">
+        {% csrf_token %}
+
+        {% for f in form %}
+        <p>
+        <div class="form-floating mb-3">
+            {{ f }}
+            <label for="floatingInput">{{f.label}}</label>
+        </div>
+        </p>
+
+        <div class="form-error">{{ f.errors }}</div>
+        {% endfor %}
+        <p>
+        <div class="form-floating mb-3">
+            <input type="text" name="patronymic" class="form-control w-50" placeholder="name@example.com">
+            <label for="floatingInput">Отчество</label>
+        </div>
+        </p>
+
+        <p>
+        <div class="form-floating mb-3">
+            <input type="text" name="phone_number" class="form-control w-50" placeholder="name@example.com">
+            <label for="floatingInput">Номер телефона</label>
+        </div>
+        </p>
+        <button type="submit" class="btn btn-primary">Регистрация</button>
+
+    </form>
+{% endblock %}
+
+
+<div class="form-floating mb-3">
+            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+            <label for="floatingInput">Email address</label>
+          </div>

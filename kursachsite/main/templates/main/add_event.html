@@ -1,0 +1,32 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+Добавление мероприятия
+{% endblock %}
+
+{% block content %}
+
+    {% if request.user.is_authenticated %}
+
+
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="form-error">{{ form.non_field_errors }}</div>
+
+        {% for f in form %}
+            {% if f.label != "ID студента" and f.label != "ФИО студента"%}
+                <p><label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}:</label> {{ f }}</p>
+                <div class="form-error">{{ f.errors }}</div>
+            {% endif %}
+        {% endfor %}
+        <input type="hidden" name="user_id" value="{{ request.user.id }}">
+        <input type="hidden" name="name" value="{{ fio }}">
+        <button type="submit" class="btn btn-success">Добавить</button>
+    </form>
+    <span>{{ error }}</span>
+    {% else %}
+        <h2><span class="badge bg-danger">Вы не авторизованы</span></h2>
+    {% endif %}
+{% endblock %}
+
